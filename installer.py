@@ -7,7 +7,7 @@ import zipfile
 import time
 import shutil # Almost fotgot this
 
-GAME_URL = "https://github.com/SquareCircleGames/Initial-Linux-Build/releases/download/v1.05/Linux_Build.zip"
+GAME_URL = "https://github.com/SquareCircleGames/Initial-Linux-Build/releases/download/v1.06/Linux_Build.zip"
 
 ZIP_NAME = "Linux-Build.zip"
 EXTRACT_DIR = "ImmortalCombatSCG"
