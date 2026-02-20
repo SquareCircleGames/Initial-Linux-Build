@@ -5,8 +5,9 @@ import subprocess
 import os
 import zipfile
 import time
+import shutil # Almost fotgot this
 
-GAME_URL = "https://github.com/SquareCircleGames/Initial-Linux-Build/releases/download/v1.04/Linux_Build.zip"
+GAME_URL = "https://github.com/SquareCircleGames/Initial-Linux-Build/releases/download/v1.05/Linux_Build.zip"
 
 ZIP_NAME = "Linux-Build.zip"
 EXTRACT_DIR = "ImmortalCombatSCG"
@@ -29,7 +30,16 @@ def main():
     with zipfile.ZipFile(ZIP_NAME, 'r') as zip_ref:
         zip_ref.extractall(EXTRACT_DIR)
 
-    # Permissions
+    # This should fix that nested folder problem
+    contents = os.listdir(EXTRACT_DIR)
+    if len(contents) == 1 and os.path.isdir(os.path.join(EXTRACT_DIR, contents[0])):
+        inner_folder = os.path.join(EXTRACT_DIR, contents[0])
+        print(f"Moving files out of subfolder: {contents[0]}...")
+        for item in os.listdir(inner_folder):
+            shutil.move(os.path.join(inner_folder, item), os.path.join(EXTRACT_DIR, item))
+        os.rmdir(inner_folder)
+
+     # Permissions
     launcher_path = None
     for root, dirs, files in os.walk(EXTRACT_DIR):
         if LAUNCHER_NAME in files:
